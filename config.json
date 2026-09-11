@@ -1,0 +1,56 @@
+{
+  "log": {
+    "loglevel": "info"
+  },
+  "inbounds": [
+    {
+      "tag": "vless-tcp",
+      "listen": "0.0.0.0",
+      "port": 10000,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "da46959f-1a35-40b2-a10c-decc2eb5ad5f",
+            "level": 0,
+            "email": "client-1"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none"
+      }
+    },
+    {
+      "tag": "vless-ws",
+      "listen": "0.0.0.0",
+      "port": 10080,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "da46959f-1a35-40b2-a10c-decc2eb5ad5f",
+            "level": 0,
+            "email": "client-1"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vless-ws"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ]
+}

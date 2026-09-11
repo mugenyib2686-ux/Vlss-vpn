@@ -1,0 +1,85 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "http-in-tcp",
+      "listen": "127.0.0.1",
+      "port": 1081,
+      "protocol": "http"
+    },
+    {
+      "tag": "http-in-ws",
+      "listen": "127.0.0.1",
+      "port": 1082,
+      "protocol": "http"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vless",
+      "tag": "vless-tcp-out",
+      "settings": {
+        "vnext": [
+          {
+            "address": "127.0.0.1",
+            "port": 10000,
+            "users": [
+              {
+                "id": "da46959f-1a35-40b2-a10c-decc2eb5ad5f",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none"
+      }
+    },
+    {
+      "protocol": "vless",
+      "tag": "vless-ws-out",
+      "settings": {
+        "vnext": [
+          {
+            "address": "127.0.0.1",
+            "port": 10080,
+            "users": [
+              {
+                "id": "da46959f-1a35-40b2-a10c-decc2eb5ad5f",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/vless-ws"
+        }
+      }
+    },
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "inboundTag": ["http-in-tcp"],
+        "outboundTag": "vless-tcp-out"
+      },
+      {
+        "inboundTag": ["http-in-ws"],
+        "outboundTag": "vless-ws-out"
+      }
+    ]
+  }
+}

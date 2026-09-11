@@ -1,0 +1,7 @@
+# Binaire Xray-core (installé par setup.sh)
+runtime/
+
+# Divers
+__pycache__/
+*.pyc
+*.whl
